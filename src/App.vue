@@ -1,19 +1,26 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  mounted () {
+    this.initDev();
+  },
+  methods: {
+    initDev () {
+        // if (config.DEV_MODE === 'mobile') {
+      const el = document.createElement('div');
+      document.body.appendChild(el);
+      const eruda = require('eruda');
+      eruda.init({ container: el });
+        // }
+    }
   }
-}
+};
 </script>
 
 <style>

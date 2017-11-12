@@ -19,11 +19,18 @@ exports.cssLoaders = function (options) {
       minimize: process.env.NODE_ENV === 'production',
       sourceMap: options.sourceMap
     }
-  }
+  };
+  const pxLoader = {
+    loader: 'px2rem-loader',
+    options: {
+      baseDpr: 1,
+      remUnit: 50
+    }
+  };
 
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
-    const loaders = [cssLoader]
+    const loaders = [cssLoader, pxLoader]
     if (loader) {
       loaders.push({
         loader: loader + '-loader',
@@ -56,7 +63,6 @@ exports.cssLoaders = function (options) {
     styl: generateLoaders('stylus')
   }
 }
-
 // Generate loaders for standalone style files (outside of .vue)
 exports.styleLoaders = function (options) {
   const output = []
