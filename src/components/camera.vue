@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
+  <article>
     <img :src="url"/>
     <input class="js_upFile cover1" @change="getImg" type="file" name="cover" :capture="capture"/>
-  </div>
+  </article>
 </template>
 
 <script>
-import { os } from '../common/envs';
+import { os } from '../module/common/envs';
 export default {
   data () {
     return {

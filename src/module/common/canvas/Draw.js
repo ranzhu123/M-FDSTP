@@ -7,7 +7,6 @@ const defaultStrokeColor = '#000';
 export default class Draw {
   constructor (el, options = {}) {
     const { strokeColor = defaultStrokeColor, width = defaultWidth, height = defaultHeight, imgSrc } = options;
-    console.log(options, height, width);
     this.el = el;
     this.canvas = this.el;
     this.cxt = this.canvas.getContext('2d');
@@ -74,7 +73,6 @@ export default class Draw {
     // canvas.ontouchmove = canvas.ontouchend = null
   }
   clear (btn) {
-    console.log(this.width, this.height);
     this.cxt.clearRect(0, 0, this.width, this.height);
     this.drawImg();
   }

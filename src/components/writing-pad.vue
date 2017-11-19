@@ -1,11 +1,11 @@
 <template>
-  <article class="writing-pad" id="app">
+  <article class="writing-pad">
     <div class="hello">
       <!--touchstart,touchmove,touchend,touchcancel 这-->
       <canvas ref="draw" :width="width" :height="height" style="border:1px solid black">Canvas画板</canvas>
       <div class="option">
-        <button type="" v-on:click="clear">清除</button>
-        <button v-on:click="save">保存</button>
+        <mt-button v-on:click="clear">清除</mt-button>
+        <mt-button v-on:click="save">保存</mt-button>
       </div>
       <img v-bind:src="url" alt="">
     </div>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Draw from '@/common/canvas/Draw';
+import Draw from '@/module/common/canvas/Draw';
 // const imgs = require('../assets/timg.jpeg');
 export default {
   name: 'app',
