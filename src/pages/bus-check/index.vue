@@ -1,33 +1,28 @@
 <template>
-  <article class="material">
-     <v-table :columns="columns" :table-data="materials" :event="clickEvent">
-     </v-table>
+  <article class="bus-check">
+    <div>
+      前左侧
+      <img :src="imgUrl"/>
+      <v-camera :callback="getUrl"></v-camera>
+    </div>
   </article>
 </template>
 <script>
-import vueTable from '@/components/table';
+import Camera from '@/components/camera';
 import { materialListUrl } from '@/module/api/api';
 import axios from 'axios';
 export default {
-  name: 'material',
+  name: 'bus-check',
   data () {
     return {
-      materialListUrl: materialListUrl,
-      columns: [{
-        key: 'title',
-        value: '标题'
-      }, {
-        key: 'date',
-        value: '日期'
-      }],
-      materials: []
+      imgUrl: ''
     };
-  },
-  components: {
-    'v-table': vueTable
   },
   created () {
     this.getMaterialList();
+  },
+  components: {
+    'v-camera': Camera
   },
   methods: {
     getMaterialList () {
@@ -37,6 +32,10 @@ export default {
     },
     clickEvent (id) {
       this.$router.push({path: `/material/detail?id=${id}`});
+    },
+    getUrl (url) {
+      console.log(url);
+      this.imgUrl = url;
     }
   }
 };

@@ -36,7 +36,7 @@ export default {
       });
     },
     clickEvent (id) {
-      this.$router.push({path: `/material/detail?id=${id}`});
+      this.$router.push({path: `/duty-sign/detail?id=${id}`});
     }
   }
 };

@@ -6,7 +6,7 @@
 <script>
 import Login from '@/components/login';
 export default {
-  name: 'app',
+  name: 'login',
   data () {
     return {
       username: '',

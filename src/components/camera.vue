@@ -1,6 +1,6 @@
 <template>
   <article>
-    <img :src="url"/>
+    <img v-if="!callback" :src="url"/>
     <input class="js_upFile cover1" @change="getImg" type="file" name="cover" :capture="capture"/>
   </article>
 </template>
@@ -8,6 +8,11 @@
 <script>
 import { os } from '../module/common/envs';
 export default {
+  props: {
+    callback: {
+      type: Function
+    }
+  },
   data () {
     return {
       url: ''
@@ -17,7 +22,7 @@ export default {
     capture () {
       const isIos = os === 'ios';
       if (!isIos) {
-        this.capture = 'camera';
+        return 'camera';
       };
     }
   },
@@ -42,6 +47,10 @@ export default {
       reader.onload = (e) => {
         console.log('成功读取....');
         this.url = e.target.result;
+        if (this.callback) {
+          console.log(1);
+          this.callback(this.url);
+        }
       };
       reader.readAsDataURL(file);
     }

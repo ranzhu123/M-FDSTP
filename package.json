@@ -5,20 +5,24 @@
   "author": "986364200@qq.com",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js",
+    "dev": "export API_ENV=mock && node build/dev-server.js",
     "devDebugger": "DEV_MODE=mobile node build/dev-server.js",
     "start": "npm run dev",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "axios": "^0.17.1",
+    "gulp": "^3.9.1",
+    "gulp-shell": "^0.6.3",
     "mint-ui": "^2.2.10",
     "node-sass": "^4.6.1",
     "normalize.css": "^7.0.0",
+    "querystring": "^0.2.0",
     "sass-loader": "^6.0.6",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1",
-    "vuetable": "^1.5.12"
+    "vue-resource": "^1.3.4",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
