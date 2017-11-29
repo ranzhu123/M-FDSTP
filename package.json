@@ -9,7 +9,8 @@
     "devDebugger": "DEV_MODE=mobile node build/dev-server.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src"
+    "lint": "eslint --ext .js,.vue src",
+    "upload": "./node_modules/.bin/gulp upload"
   },
   "dependencies": {
     "axios": "^0.17.1",
