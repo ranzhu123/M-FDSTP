@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     login () {
-      console.log(1);
+      this.$router.push('/main-page');
     }
   }
 };

@@ -3,5 +3,4 @@ export const getQueryString = () => {
   return querystring.decode(location.href.split('?')[1]);
 };
 export default {
-
 };

@@ -2,8 +2,10 @@
   <article class="material-detail">
     {{info}}
     <section>
-      <v-camera></v-camera>
-      <div @click="sign">签到</div>
+      <v-camera>
+        <div class="take-photo">拍照</div>
+      </v-camera>
+      <div class="sign" @click="sign">签到</div>
     </section>
   </article>
 </template>
@@ -11,7 +13,7 @@
 import { materialDetailUrl, signUrl } from '@/module/api/api';
 import Camera from '@/components/camera';
 import axios from 'axios';
-import getQueryString from '@/module/common/utils';
+import { getQueryString } from '@/module/common/utils';
 export default {
   name: 'material-detail',
   data () {
@@ -49,6 +51,13 @@ export default {
 };
 </script>
 <style lang="scss">
-  
+  .take-photo, .sign {
+    cursor: pointer;
+    line-height: 40px;
+    background-color: #b18f5a;
+    color: white;
+    margin: 5px 50px;
+    border-radius: 4px;
+  }
 </style>
 

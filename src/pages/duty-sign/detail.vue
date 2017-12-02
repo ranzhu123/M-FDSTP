@@ -11,7 +11,7 @@
 import { materialDetailUrl, signUrl } from '@/module/api/api';
 import writingPad from '@/components/writing-pad';
 import axios from 'axios';
-import getQueryString from '@/module/common/utils';
+import { getQueryString } from '@/module/common/utils';
 export default {
   name: 'material-detail',
   data () {

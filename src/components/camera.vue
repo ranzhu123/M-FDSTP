@@ -1,7 +1,11 @@
 <template>
   <article>
     <img v-if="!callback" :src="url"/>
-    <input class="js_upFile cover1" @change="getImg" type="file" name="cover" :capture="capture"/>
+    <input class="fileinput-button" ref="upload" @change="getImg" type="file" name="cover" :capture="capture"/>
+    <span class="btn-container" @click="uploadInfo">
+      <slot></slot>
+    </span>
+    <div ref="uploadHackBlock" @click.stop="test"></div>
   </article>
 </template>
 
@@ -27,6 +31,9 @@ export default {
     }
   },
   methods: {
+    uploadInfo () {
+      return this.$refs.upload.click();
+    },
     getImg (obj) {
       // const that = this;
       const file = obj.target.files[0];
@@ -58,7 +65,12 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss">
+  .fileinput-button {
+    display: none;
+  }
+  .btn-container {
+    position: relative;
+  }
 </style>
 

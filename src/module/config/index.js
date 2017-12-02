@@ -8,7 +8,7 @@ const getDefaultAPIEnvs = (env) => {
   const envs = {};
   switch (env) {
     case 'mock':
-      envs.API_PATH = '//easy-mock.com/mock/5a12f09d09c9d418f0cea0a6/fdstp';
+      envs.API_PATH = 'https://easy-mock.com/mock/5a12f09d09c9d418f0cea0a6/fdstp';
       break;
     case 'production':
     default:
