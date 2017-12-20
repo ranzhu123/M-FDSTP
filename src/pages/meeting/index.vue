@@ -1,6 +1,6 @@
 <template>
   <article class="material">
-    <h2>安全会议列表</h2>
+    <h2>教育培训列表</h2>
     <v-table :columns="columns" :table-data="materials" :event="clickEvent">
     </v-table>
   </article>
@@ -34,11 +34,8 @@ export default {
   },
   methods: {
     getMaterialList () {
-      fetch(`${materialListUrl}/1`, {
-        method: 'GET',
-        header: {
-          'Accept': '*/*'
-        }
+      fetch(`${materialListUrl}/2`, {
+        method: 'get'
       }).then(rst => {
         const materials = rst.data || [];
         const materialsRead = materials.filter(material => material.isRead);
@@ -47,7 +44,7 @@ export default {
       });
     },
     clickEvent (id) {
-      this.$router.push({path: `/material/detail?id=${id}`});
+      this.$router.push({path: `/meeting/detail?id=${id}`});
     },
     sortByDate () {
       const power = this.dateSort2before ? 1 : -1;

@@ -1,14 +1,20 @@
 <template>
   <div id="app">
     <router-view/>
+    <v-loading></v-loading>
   </div>
 </template>
 
 <script>
+import loadingComponent from '@/components/loading';
+
 export default {
   name: 'app',
   mounted () {
     // this.initDev();
+  },
+  components: {
+    'v-loading': loadingComponent
   },
   methods: {
     initDev () {
@@ -25,6 +31,7 @@ export default {
 
 <style lang="scss">
 @import './module/style/base.scss';
+@import './module/style/global.scss';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

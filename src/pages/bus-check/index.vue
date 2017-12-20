@@ -1,11 +1,15 @@
 <template>
   <article class="bus-check">
-    <section v-for="pic in position" :key="'pic' + pic">
-      {{pic.title}}
-      <img class="bus-img" :src="pic.imgUrl || defaultImg"/>
-      <v-camera :callback="getUrl">
-        <div>上传</div>
+    <h1>车辆检查</h1>
+    <p>请提供车辆各方位照片</p>
+    <section class="bus-item" v-for="pic in position" :key="'pic' + pic.flag">
+      <span class="bus-title">{{pic.title}}</span>
+      <section class="bus-content">
+        <img class="bus-img" :src="pic.imgUrl || defaultImg"/>
+        <v-camera :callback="getUrl">
+        <div @click="chooseBus(pic.flag)">上传</div>
       </v-camera>
+      </section>
     </section>
     <div class="bus-submit">提交</div>
   </article>
@@ -13,7 +17,7 @@
 <script>
 import Camera from '@/components/camera';
 import { materialListUrl } from '@/module/api/api';
-import axios from 'axios';
+import { fetch } from '@/module/common/fetch';
 const defaultImg = require('../../assets/car.jpg');
 export default {
   name: 'bus-check',
@@ -45,8 +49,13 @@ export default {
     'v-camera': Camera
   },
   methods: {
+    chooseBus (flag) {
+      this.curPic = flag;
+    },
     getMaterialList () {
-      axios.get(materialListUrl).then(rst => {
+      fetch(`${materialListUrl}/1`, {
+        method: 'get'
+      }).then(rst => {
         this.materials = rst.data.data || [];
       });
     },
@@ -73,6 +82,18 @@ export default {
       color: white;
       border-radius: 4px;
       line-height: 40px
+    }
+    &-item {
+      display: flex;
+      margin-top: 30px;
+    }
+    &-title {
+      width: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: #333;
     }
   }
 </style>

@@ -7,7 +7,7 @@
 <script>
 import vueTable from '@/components/table';
 import { materialListUrl } from '@/module/api/api';
-import axios from 'axios';
+import { fetch } from '@/module/common/fetch';
 export default {
   name: 'material',
   data () {
@@ -31,8 +31,10 @@ export default {
   },
   methods: {
     getMaterialList () {
-      axios.get(materialListUrl).then(rst => {
-        this.materials = rst.data.data || [];
+      fetch(`${materialListUrl}/3`, {
+        method: 'get'
+      }).then(rst => {
+        this.materials = rst.data || [];
       });
     },
     clickEvent (id) {

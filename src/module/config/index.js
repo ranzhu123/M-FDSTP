@@ -10,7 +10,12 @@ const getDefaultAPIEnvs = (env) => {
     case 'mock':
       envs.API_PATH = 'https://easy-mock.com/mock/5a12f09d09c9d418f0cea0a6/fdstp';
       break;
+    case 'develpment':
+      envs.API_PATH = '';
+      break;
     case 'production':
+      envs.API_PATH = 'http://47.92.112.44:8080';
+      break;
     default:
       envs.API_PATH = 'WOCACA';
       break;

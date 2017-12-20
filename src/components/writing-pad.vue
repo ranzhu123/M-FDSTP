@@ -3,10 +3,11 @@
     <div class="hello">
       <!--touchstart,touchmove,touchend,touchcancel 这-->
       <canvas ref="draw" :width="width" :height="height" style="border:1px solid black">Canvas画板</canvas>
-      <div class="option">
+      <!-- <div class="option">
         <mt-button v-on:click="clear">清除</mt-button>
         <mt-button v-on:click="save">保存</mt-button>
-      </div>
+      </div> -->
+      <slot></slot>
       <img v-bind:src="url" alt="">
     </div>
   </article>

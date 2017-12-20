@@ -2,14 +2,14 @@
   <table class="v-table" cellspacing="0">
     <tr v-if="columns.length">
       <th></th>
-      <th v-for="column in columns" :key="'table' + column" :value="column" @click="columnEvent(column)">
+      <th v-for="(column, index) in columns" :key="'table' + index" :value="column" @click="columnEvent(column)">
         {{column.value}}
       </th>
     </tr>
-    <tr v-for="list in tableData" :key="'list' + list" @click="event(list.id)">
+    <tr v-for="(list, index) in tableData" :key="'list' + index" @click="event(list.id)">
       <td v-if="list.isRead">已读</td>
       <td v-else>未读</td>
-      <td v-for="column in columns" :key="'data' + column">
+      <td v-for="(column,index) in columns" :key="'data' + index">
         {{list[column.key]}}
       </td>
     </tr>

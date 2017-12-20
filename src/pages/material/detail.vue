@@ -1,6 +1,11 @@
 <template>
   <article class="material-detail">
-    {{info}}
+    <section class="material-content">
+      <h2 class="title">
+        标题
+      </h2>
+      <div v-html="info"></div>
+    </section>
     <section>
       <v-camera>
         <div class="take-photo">拍照</div>
@@ -12,7 +17,7 @@
 <script>
 import { materialDetailUrl, signUrl } from '@/module/api/api';
 import Camera from '@/components/camera';
-import axios from 'axios';
+import { fetch } from '@/module/common/fetch';
 import { getQueryString } from '@/module/common/utils';
 export default {
   name: 'material-detail',
@@ -32,15 +37,17 @@ export default {
   },
   methods: {
     getMaterialDetail (options) {
-      axios.get(materialDetailUrl, {
+      fetch(materialDetailUrl, {
+        method: 'get',
         query: options
       }).then(rst => {
-        console.log(rst);
-        this.info = rst.data.data.info;
+        this.info = rst.data.content;
       });
     },
     sign () {
-      axios.get(signUrl).then(rst => {
+      fetch(signUrl, {
+        method: 'get'
+      }).then(rst => {
         console.log(rst);
         if (rst.data.flag) {
           alert('签到成功');
@@ -58,6 +65,14 @@ export default {
     color: white;
     margin: 5px 50px;
     border-radius: 4px;
+  }
+  .material {
+    &-content {
+      padding: 20px;
+    }
+    &-title {
+      margin-bottom: 10px; 
+    }
   }
 </style>
 

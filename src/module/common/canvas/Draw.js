@@ -22,12 +22,17 @@ export default class Draw {
       endY: 0
     };
   }
+  bodyLock (flag) {
+    document.body.style.overflow = flag ? 'hidden' : 'auto';
+  }
   init (btn) {
     this.canvas.addEventListener('touchstart', (event) => {
+      this.bodyLock(true);
       document.addEventListener('touchstart', preHandler, false);
       this.drawBegin(event);
     });
     this.canvas.addEventListener('touchend', (event) => {
+      this.bodyLock(false);
       document.addEventListener('touchend', preHandler, false);
       this.drawEnd();
     });
@@ -43,27 +48,32 @@ export default class Draw {
       };
     }
   }
+  getHtmlScrollTop () {
+    return document.querySelector('html').scrollTop;
+  }
   drawBegin (e) {
+    const htmlScrollTop = this.getHtmlScrollTop();
     window.getSelection() ? window.getSelection().removeAllRanges() : document.selection.empty();
     this.cxt.strokeStyle = this.strokeColor;
     this.cxt.beginPath();
     this.cxt.moveTo(
       e.changedTouches[0].clientX - this.stage_info.left,
-      e.changedTouches[0].clientY - this.stage_info.top
+      e.changedTouches[0].clientY - this.stage_info.top + htmlScrollTop
     );
-    this.path.beginX = e.changedTouches[0].clientX - this.stage_info.left;
-    this.path.beginY = e.changedTouches[0].clientY - this.stage_info.top;
+    // this.path.beginX = e.changedTouches[0].clientX - this.stage_info.left;
+    // this.path.beginY = e.changedTouches[0].clientY - this.stage_info.top + htmlScrollTop;
     this.canvas.addEventListener('touchmove', () => {
       this.drawing(event);
     });
   }
   drawing (e) {
+    const htmlScrollTop = this.getHtmlScrollTop();
     this.cxt.lineTo(
       e.changedTouches[0].clientX - this.stage_info.left,
-      e.changedTouches[0].clientY - this.stage_info.top
+      e.changedTouches[0].clientY - this.stage_info.top + htmlScrollTop
     );
-    this.path.endX = e.changedTouches[0].clientX - this.stage_info.left;
-    this.path.endY = e.changedTouches[0].clientY - this.stage_info.top;
+    // this.path.endX = e.changedTouches[0].clientX - this.stage_info.left;
+    // this.path.endY = e.changedTouches[0].clientY - this.stage_info.top + htmlScrollTop;
     this.cxt.stroke();
   }
   drawEnd () {

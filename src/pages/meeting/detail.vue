@@ -1,44 +1,40 @@
 <template>
-  <article class="duty-detail">
-    <section class="duty-content">
+  <article class="metting-detail">
+    <section class="metting-content">
       <h2 class="title">
         标题
       </h2>
       <div v-html="info"></div>
     </section>
     <section>
-      <v-writing-pad v-if="info" ref="write-pad">
-        <div class="option">
-          <mt-button v-on:click="clear">清除</mt-button>
-          <mt-button v-on:click="submit">提交</mt-button>
-        </div>
-      </v-writing-pad>
+      <v-camera>
+        <div class="take-photo"><i class="iconfont icon-paizhao"></i>拍照</div>
+      </v-camera>
+      <div class="sign" @click="sign"><i class="iconfont icon-qiandao"></i>签到</div>
     </section>
   </article>
 </template>
 <script>
-import { materialDetailUrl, updateTrainLearnUrl } from '@/module/api/api';
-import writingPad from '@/components/writing-pad';
+import { materialDetailUrl, signUrl } from '@/module/api/api';
+import Camera from '@/components/camera';
 import { fetch } from '@/module/common/fetch';
 import { getQueryString } from '@/module/common/utils';
-import eventbus from '@/module/common/EventBus';
 export default {
   name: 'material-detail',
   data () {
     return {
       qs: getQueryString(),
-      info: null,
-      signInfo: '',
-      eventbus
+      info: ''
     };
   },
   created () {
+    console.log(2);
     this.getMaterialDetail({
       id: this.qs.id
     });
   },
   components: {
-    'v-writing-pad': writingPad
+    'v-camera': Camera
   },
   methods: {
     getMaterialDetail (options) {
@@ -49,34 +45,29 @@ export default {
         this.info = rst.data.content;
       });
     },
-    getSignInfo (data) {
-      this.signInfo = data;
-    },
-    submit () {
-      const data = this.$refs['write-pad'].draw.save();
-      fetch(updateTrainLearnUrl, {
-        method: 'post',
-        query: {
-          id: this.qs.id
-        },
-        body: {
-          base64Data: data
-        }
+    sign () {
+      fetch(signUrl, {
+        method: 'get'
       }).then(rst => {
         console.log(rst);
         if (rst.data.flag) {
           alert('签到成功');
         }
       });
-    },
-    clear () {
-      this.$refs['write-pad'].clear();
     }
   }
 };
 </script>
 <style lang="scss">
-  .duty {
+  .take-photo, .sign {
+    cursor: pointer;
+    line-height: 40px;
+    background-color: #b18f5a;
+    color: white;
+    margin: 5px 50px;
+    border-radius: 4px;
+  }
+  .metting {
     &-content {
       padding: 20px;
     }

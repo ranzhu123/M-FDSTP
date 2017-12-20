@@ -1,18 +1,28 @@
 <template>
   <article class="main">
     <mt-cell title="" class="info">
-      <span class="info-name">你好，张三</span>
+      <span class="info-name">你好，{{userName}}</span>
       <img class="info-img" slot="icon" src="../../assets/timg.jpeg">
     </mt-cell>
-    <mt-cell class="options" title="安全会议及教育培训" to="/material">
+    <mt-cell class="options" title="安全会议" to="/material">
+      <i slot="icon" class="iconfont icon-huiyi"></i>
+    </mt-cell>
+    <mt-cell class="options" title="教育培训" to="/meeting">
+      <i slot="icon" class="iconfont icon-xunlianpeiyang"></i>
     </mt-cell>
     <mt-cell class="options" title="车辆检查" to="/bus-check">
+      <i slot="icon" class="iconfont icon-huoche"></i>
     </mt-cell>
     <mt-cell class="options" title="责任状签订" to="/duty-sign">
+      <i slot="icon" class="iconfont icon-zerenzhuang"></i>
+    </mt-cell>
+    <mt-cell class="options" title="答题" to="/answer">
+      <i slot="icon" class="iconfont icon-639"></i>
     </mt-cell>
   </article>
 </template>
 <script>
+import { mapState } from 'vuex';
 export default {
   name: 'main-page',
   data () {
@@ -21,6 +31,9 @@ export default {
       password: ''
     };
   },
+  computed: mapState({
+    userName: 'userName'
+  }),
   methods: {
     login () {
       this.$router.push('/main-page');
@@ -29,6 +42,11 @@ export default {
 };
 </script>
 <style lang="scss">
+  .main {
+    .iconfont {
+      font-size: 26px;
+    }
+  }
   .info {
     height: 200px;
     .mint-cell-wrapper {
