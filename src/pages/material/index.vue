@@ -47,7 +47,8 @@ export default {
       });
     },
     clickEvent (id) {
-      this.$router.push({path: `/material/detail?id=${id}`});
+      const title = this.materials.filter(material => material.id === id)[0].title;
+      this.$router.push({path: `/material/detail?id=${id}&title=${title}`});
     },
     sortByDate () {
       const power = this.dateSort2before ? 1 : -1;

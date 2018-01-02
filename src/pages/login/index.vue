@@ -31,8 +31,8 @@ export default {
         }
       }).then((rst = {}) => {
         const {data = {}} = rst;
-        if (data === 'success' || data.loginName) {
-          this.$store.commit('setName', data.login || '李四');
+        if (data.name) {
+          this.$store.commit('setName', data.name || '李四');
           this.$router.push('/main-page');
         } else {
           alert('登录失败');

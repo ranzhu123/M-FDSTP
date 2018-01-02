@@ -2,21 +2,23 @@
   <article class="metting-detail">
     <section class="metting-content">
       <h2 class="title">
-        标题
+        {{title}}
       </h2>
-      <div v-html="info"></div>
+      <div v-html="info" class="html-container"></div>
     </section>
     <section>
       <v-camera>
         <div class="take-photo"><i class="iconfont icon-paizhao"></i>拍照</div>
       </v-camera>
       <div class="sign" @click="sign"><i class="iconfont icon-qiandao"></i>签到</div>
+      <div class="sign" :class="timeover?'':'disabled'" @click="answer"><v-countdown :over-callback="()=>{this.timeover = true}" :during=10></v-countdown><i class="iconfont icon-qiandao"></i>答题</div>
     </section>
   </article>
 </template>
 <script>
 import { materialDetailUrl, signUrl } from '@/module/api/api';
 import Camera from '@/components/camera';
+import CountDown from '@/components/countdown';
 import { fetch } from '@/module/common/fetch';
 import { getQueryString } from '@/module/common/utils';
 export default {
@@ -24,17 +26,19 @@ export default {
   data () {
     return {
       qs: getQueryString(),
-      info: ''
+      info: '',
+      timeover: false
     };
   },
   created () {
-    console.log(2);
+    this.title = this.qs.title;
     this.getMaterialDetail({
       id: this.qs.id
     });
   },
   components: {
-    'v-camera': Camera
+    'v-camera': Camera,
+    'v-countdown': CountDown
   },
   methods: {
     getMaterialDetail (options) {
@@ -54,6 +58,13 @@ export default {
           alert('签到成功');
         }
       });
+    },
+    answer () {
+      if (this.timeover) {
+        this.$router.push(`/answer/${this.qs.id}`);
+      } else {
+        alert('还未到答题时间');
+      }
     }
   }
 };
@@ -66,6 +77,9 @@ export default {
     color: white;
     margin: 5px 50px;
     border-radius: 4px;
+    &.disabled {
+      background-color: #bfbfbf;
+    }
   }
   .metting {
     &-content {
@@ -74,6 +88,9 @@ export default {
     &-title {
       margin-bottom: 10px; 
     }
+  }
+  .html-container {
+    margin-top: 20px;
   }
 </style>
 

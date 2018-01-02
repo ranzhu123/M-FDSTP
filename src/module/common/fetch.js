@@ -18,12 +18,13 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(data => { // 响应成功关闭loading
   eventbus.broadcast('loading-close');
   if (data && data.data === '请登录') {
-    return MessageBox({
+    MessageBox({
       title: '哎呀，登录态丢失了~~~',
       confirmButtonText: '去登录'
     }).then(() => {
       location.hash = '#/login';
     });
+    return Promise.reject(new Error('登录态丢失了'));
   }
   return data;
 }, error => {
@@ -44,13 +45,19 @@ export const fetch = (url, options) => {
   const {
     method = 'get',
     body = {},
-    query = {}
+    query = {},
+    headers = {},
+    data = null
   } = options;
   const qs = Object.assign({}, query);
   const fetchUrl = url + querySymble(url, qs) + querystring.encode(qs);
-  const data = Object.assign({}, body, options.data);
-  return axios(fetchUrl, {
+  const fetchOption = {
     method: method.toUpperCase(),
-    data
-  });
+    data,
+    headers
+  };
+  if (!data) {
+    fetchOption.data = Object.assign({}, body);
+  }
+  return axios(fetchUrl, fetchOption);
 };

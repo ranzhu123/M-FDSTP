@@ -66,7 +66,12 @@ export default new Router({
       component: DutySignDetail
     },
     {
-      path: '/answer',
+      path: '/answer/:id',
+      name: 'answer',
+      component: Answer
+    },
+    {
+      path: '/answer/:id/:index',
       name: 'answer',
       component: Answer
     }

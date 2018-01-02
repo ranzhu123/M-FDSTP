@@ -2,9 +2,9 @@
   <article class="material-detail">
     <section class="material-content">
       <h2 class="title">
-        标题
+        {{title}}
       </h2>
-      <div v-html="info"></div>
+      <div v-html="info" class="html-container"></div>
     </section>
     <section>
       <v-camera>
@@ -28,6 +28,7 @@ export default {
     };
   },
   created () {
+    this.title = this.qs.title;
     this.getMaterialDetail({
       id: this.qs.id
     });
@@ -73,6 +74,9 @@ export default {
     &-title {
       margin-bottom: 10px; 
     }
+  }
+  .html-container {
+    margin-top: 20px;
   }
 </style>
 

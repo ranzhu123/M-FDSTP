@@ -1,6 +1,6 @@
 <template>
   <article>
-    <img v-if="!callback" :src="url"/>
+    <img v-if="!callback && url" :src="url"/>
     <input class="fileinput-button" ref="upload" @change="getImg" type="file" name="cover" :capture="capture"/>
     <span class="btn-container" @click="uploadInfo">
       <slot></slot>
@@ -55,7 +55,6 @@ export default {
         console.log('成功读取....');
         this.url = e.target.result;
         if (this.callback) {
-          console.log(1);
           this.callback(this.url);
         }
       };

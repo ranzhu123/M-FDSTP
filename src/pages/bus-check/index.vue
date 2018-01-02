@@ -11,12 +11,12 @@
       </v-camera>
       </section>
     </section>
-    <div class="bus-submit">提交</div>
+    <div class="bus-submit" @click="submit">提交</div>
   </article>
 </template>
 <script>
 import Camera from '@/components/camera';
-import { materialListUrl } from '@/module/api/api';
+import { materialListUrl, truckPhotoUploadUrl } from '@/module/api/api';
 import { fetch } from '@/module/common/fetch';
 const defaultImg = require('../../assets/car.jpg');
 export default {
@@ -64,6 +64,11 @@ export default {
     },
     getUrl (url) {
       this.position[this.curPic].imgUrl = url;
+    },
+    submit () {
+      fetch(`${truckPhotoUploadUrl}/1`, {}).then(() => {
+        console.log();
+      });
     }
   }
 };
