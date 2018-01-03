@@ -2,7 +2,7 @@
   <article class="options">
     <header class="question-name">{{optionsData.question}}</header>
     <section class="options-item" @click="chooseOption(option)" v-for="(option, index) in optionsData.options" :key="index">
-      <div class="options-check"><span class="checkbox" :class="checkBoxStyle(option)">{{option.label}}</span></div>
+      <div class="options-check"><span class="checkbox" :class="boxStyles[index]">{{option.label}}</span></div>
       <div class="options-value">{{option.value}}</div>
     </section>
   </article>
@@ -22,31 +22,51 @@ export default {
       type: Object,
       required: true
     },
-    chooseOpt
+    chooseOpt: {
+      type: Function,
+      required: true
+    }
+  },
+  watch: {
+    changeOpt () {
+      this.setBoxStyles();
+    },
+    optionsData () {
+      this.setBoxStyles();
+    }
+  },
+  data () {
+    return {
+      changeOpt: 0,
+      boxStyles: this.optionsData.options.map(option => this.checkBoxStyle(option))
+    };
   },
   methods: {
+    setBoxStyles () {
+      this.boxStyles = this.optionsData.options.map(option => this.checkBoxStyle(option));
+    },
     checkBoxStyle (option) {
-      const { answered, answer, rightAnswer } = option;
+      const { answered, answer, rightAnswer } = this.optionsData;
+      const label = option.label;
+      console.log(answered);
       if (answered) {
-        if (answered === rightAnswer) {
+        if (label === rightAnswer) {
           return classesMap['correct'];
+        } else if (label !== rightAnswer && label === answered) {
+          return classesMap['wrong'];
         }
-        return classesMap['wrong'];
-      } else if (answer) {
+      } else if (answer && answer === label) {
         return classesMap['checked'];
       }
       return classesMap['unchecked'];
     },
     chooseOption (option) {
-      if (option.answered) {
+      if (this.optionsData.answered) {
         return;
       }
+      this.changeOpt += 1;
       return this.chooseOpt(option);
     }
-  },
-  data () {
-    return {
-    };
   }
 };
 </script>
@@ -79,6 +99,18 @@ export default {
         border-radius: 50%;
         background-color: #1296db;
         color:white;
+        &.correct {
+          background-color: #037231;
+        }
+        &.wrong {
+          background-color: #c20707;
+        }
+        &.checked {
+          background-color: #1296db;
+        }
+        &.unchecked {
+          background-color: #424744;
+        }
       }
     }
     &-value {

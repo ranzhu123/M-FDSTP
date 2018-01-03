@@ -1,6 +1,6 @@
 <template>
   <article class="bus-check">
-    <v-options :choose-opt="chooseAnswer" :options-data="questionData[questionIndex]"></v-options>
+    <v-options v-if="questionData.length" :choose-opt="chooseAnswer" :options-data="questionData[questionIndex]"></v-options>
     <div class="question-opt" v-if="questionIndex<questionData.length-1">
       <span @click="lastQuestion" :class="questionIndex===0?'disabled':''">
         上一题
@@ -32,9 +32,8 @@ export default {
       options: [],
       title: '',
       questionData: [],
-      value: '',
-      answers: [],
-      answerDisabled: false
+      answerDisabled: false,
+      curQuestion: {}
     };
   },
   components: {
@@ -45,14 +44,7 @@ export default {
     this.questionId = routeParam.id;
     if (!this.questionIndex) {
       this.getQuestions();
-    } else {
-      this.setQuestion();
     }
-  },
-  watch: {
-    // 如果路由有变化，会再次执行该方法
-    'questionIndex': 'setQuestion',
-    'value': 'setAnswer'
   },
   methods: {
     getQuestions () {
@@ -77,30 +69,11 @@ export default {
             answer: ''
           };
         });
-        console.log(this.questionData);
-        // if (this.questionData.some(question => question.answer)) { // 答过题
-        //   this.answerDisabled = true;
-        //   this.answers = this.questionData.map(question => question.answer);
-        //   this.value = this.answers[0];
-        // }
+        this.curQuestion = this.questionData[this.questionIndex];
       });
-    },
-    setQuestion () {
-      // const index = this.questionIndex;
-      // const data = this.questionData[index - 1];
-      // this.title = data.question;
-      // const choicesKeys = Object.keys(data).filter(choice =>
-      //   /choice/.test(choice)
-      // );
-      // this.options = choicesKeys.map(choice => ({
-      //   label: data[choice],
-      //   value: choice.replace('choice', ''),
-      //   disabled: false
-      // }));
     },
     nextQuestion () {
       if (this.questionIndex < this.questionData.length - 1) {
-        console.log(this.value);
         return this.changeQuestion(1);
       }
     },
@@ -110,23 +83,13 @@ export default {
       }
     },
     chooseAnswer (data) {
-      const index = this.questionData.map(question => question.id).indexOf(data.id);
-      this.questionData[index].answer = data.answer;
+      // const index = this.questionData.map(question => question.id).indexOf(data.id);
+      this.curQuestion.answer = data.label;
+      console.log(this.curQuestion);
     },
     changeQuestion (num) {
       this.questionIndex += num;
-      this.value = this.answers[this.questionIndex - 1];
-    },
-    setAnswer (value) {
-      console.log(value);
-      // if (this.questionData[this.questionIndex - 1].rightAnswer === value) {
-      //   alert('正确');
-      // } else {
-      //   alert('错误');
-      // }
-      if (this.answers[this.questionIndex - 1] !== value) {
-        this.answers[this.questionIndex - 1] = value;
-      }
+      this.curQuestion = this.questionData[this.questionIndex];
     },
     submitAnswer () {
       if (!this.answerDisabled) {
@@ -134,8 +97,8 @@ export default {
           method: 'post',
           data: this.questionData.map((question, index) => ({
             questionId: question.id,
-            right: question.rightAnswer === this.answers[index],
-            answer: this.answers[index]
+            right: question.rightAnswer === question.answer,
+            answer: question.answer
           }))
         }).then(rst => {
           if (rst.data) {
