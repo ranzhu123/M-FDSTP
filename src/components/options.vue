@@ -48,7 +48,6 @@ export default {
     checkBoxStyle (option) {
       const { answered, answer, rightAnswer } = this.optionsData;
       const label = option.label;
-      console.log(answered);
       if (answered) {
         if (label === rightAnswer) {
           return classesMap['correct'];

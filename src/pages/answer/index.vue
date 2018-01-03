@@ -57,18 +57,19 @@ export default {
           const choicesKeys = Object.keys(data).filter(choice =>
             /choice/.test(choice)
           );
-          this.answerDisabled = this.answerDisabled || data.answer;
           return {
             options: choicesKeys.map(choice => ({
               label: choice.replace('choice', ''),
               value: data[choice]
             })),
+            id: data.id,
             question: data.question,
             rightAnswer: data.rightAnswer,
             answered: data.answer,
             answer: ''
           };
         });
+        this.answerDisabled = this.answerDisabled || this.questionData.some(question => question.answered);
         this.curQuestion = this.questionData[this.questionIndex];
       });
     },
@@ -85,7 +86,6 @@ export default {
     chooseAnswer (data) {
       // const index = this.questionData.map(question => question.id).indexOf(data.id);
       this.curQuestion.answer = data.label;
-      console.log(this.curQuestion);
     },
     changeQuestion (num) {
       this.questionIndex += num;
