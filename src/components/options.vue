@@ -1,8 +1,8 @@
 <template>
   <article class="options">
-    <header class="question-name">{{question}}</header>
-    <section class="options-item" v-for="(option, index) in options" :key="index">
-      <div class="options-check"><span class="checkbox" :class="checkBoxStyle(option.status)"></span></div>
+    <header class="question-name">{{optionsData.question}}</header>
+    <section class="options-item" @click="chooseOption(option)" v-for="(option, index) in optionsData.options" :key="index">
+      <div class="options-check"><span class="checkbox" :class="checkBoxStyle(option)">{{option.label}}</span></div>
       <div class="options-value">{{option.value}}</div>
     </section>
   </article>
@@ -12,25 +12,36 @@ const classesMap = {
   'correct': 'correct',
   'wrong': 'wrong',
   'unchecked': 'unchecked',
+  'checked': 'checked',
   'disabled': 'disabled'
 };
 export default {
   name: 'app',
   props: {
-    question: {
-      type: String,
-      required: true,
-      default: '题目'
+    optionsData: {
+      type: Object,
+      required: true
     },
-    options: {
-      type: Array,
-      required: true,
-      default: []
-    }
+    chooseOpt
   },
   methods: {
-    checkBoxStyle (status) {
-      return classesMap[status];
+    checkBoxStyle (option) {
+      const { answered, answer, rightAnswer } = option;
+      if (answered) {
+        if (answered === rightAnswer) {
+          return classesMap['correct'];
+        }
+        return classesMap['wrong'];
+      } else if (answer) {
+        return classesMap['checked'];
+      }
+      return classesMap['unchecked'];
+    },
+    chooseOption (option) {
+      if (option.answered) {
+        return;
+      }
+      return this.chooseOpt(option);
     }
   },
   data () {
@@ -52,9 +63,23 @@ export default {
   .options {
     &-item {
       display: flex;
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
     }
     &-check {
       width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .checkbox {
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        border-radius: 50%;
+        background-color: #1296db;
+        color:white;
+      }
     }
     &-value {
       flex: 1;

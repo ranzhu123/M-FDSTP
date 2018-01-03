@@ -1,21 +1,16 @@
 <template>
   <article class="bus-check">
-    <mt-radio
-      :title="title"
-      v-model="value"
-      :options="options">
-    </mt-radio>
-    <v-options :question="title" :options="questionData[questionIndex]"></v-options>
-    <div class="question-opt" v-if="!questionIndex||questionIndex<questionData.length">
-      <span @click="lastQuestion" :class="!questionIndex||questionIndex===1?'disabled':''">
+    <v-options :choose-opt="chooseAnswer" :options-data="questionData[questionIndex]"></v-options>
+    <div class="question-opt" v-if="questionIndex<questionData.length-1">
+      <span @click="lastQuestion" :class="questionIndex===0?'disabled':''">
         上一题
       </span>
-      <span @click="nextQuestion" :class="!questionIndex||questionIndex===questionData.length?'disabled':''">
+      <span @click="nextQuestion" :class="questionIndex===questionData.length-1?'disabled':''">
         下一题
       </span>
     </div>
     <div class="question-submit" v-else>
-      <span @click="lastQuestion" :class="!questionIndex||questionIndex===1?'disabled':''">
+      <span @click="lastQuestion" :class="questionIndex===0?'disabled':''">
         上一题
       </span>
       <span @click="submitAnswer" :class="answerDisabled?'disabled':''">提交答案</span>
@@ -64,41 +59,59 @@ export default {
       fetch(`${examQuestionUrl}/${this.questionId}`, {
         method: 'get'
       }).then(rst => {
-        this.questionData = rst.data.choice;
-        this.questionIndex = this.questionData.length && 1;
-        if (this.questionData.some(question => question.answer)) { // 答过题
-          this.answerDisabled = true;
-          this.answers = this.questionData.map(question => question.answer);
-          this.value = this.answers[0];
-        }
+        // this.questionData = rst.data.choice;
+        const { choice } = rst.data;
+        this.questionData = choice.map((data, index) => {
+          const choicesKeys = Object.keys(data).filter(choice =>
+            /choice/.test(choice)
+          );
+          this.answerDisabled = this.answerDisabled || data.answer;
+          return {
+            options: choicesKeys.map(choice => ({
+              label: choice.replace('choice', ''),
+              value: data[choice]
+            })),
+            question: data.question,
+            rightAnswer: data.rightAnswer,
+            answered: data.answer,
+            answer: ''
+          };
+        });
+        console.log(this.questionData);
+        // if (this.questionData.some(question => question.answer)) { // 答过题
+        //   this.answerDisabled = true;
+        //   this.answers = this.questionData.map(question => question.answer);
+        //   this.value = this.answers[0];
+        // }
       });
     },
     setQuestion () {
-      const index = this.questionIndex;
-      const data = this.questionData[index - 1];
-      this.title = data.question;
-      const choicesKeys = Object.keys(data).filter(choice =>
-        /choice/.test(choice)
-      );
-      this.options = choicesKeys.map(choice => ({
-        label: data[choice],
-        value: choice.replace('choice', ''),
-        disabled: false
-      }));
+      // const index = this.questionIndex;
+      // const data = this.questionData[index - 1];
+      // this.title = data.question;
+      // const choicesKeys = Object.keys(data).filter(choice =>
+      //   /choice/.test(choice)
+      // );
+      // this.options = choicesKeys.map(choice => ({
+      //   label: data[choice],
+      //   value: choice.replace('choice', ''),
+      //   disabled: false
+      // }));
     },
     nextQuestion () {
-      if (this.questionIndex && this.questionIndex < this.questionData.length) {
+      if (this.questionIndex < this.questionData.length - 1) {
         console.log(this.value);
         return this.changeQuestion(1);
       }
     },
     lastQuestion () {
-      if (this.questionIndex && this.questionIndex > 1) {
+      if (this.questionIndex > 0) {
         return this.changeQuestion(-1);
       }
     },
     chooseAnswer (data) {
-      console.log(data);
+      const index = this.questionData.map(question => question.id).indexOf(data.id);
+      this.questionData[index].answer = data.answer;
     },
     changeQuestion (num) {
       this.questionIndex += num;
@@ -137,24 +150,6 @@ export default {
 };
 </script>
 <style lang="scss">
-  .mint-radiolist-title {
-    min-height: 150px;
-    margin: 30px 15px 30px;
-    font-size: 20px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-  }
-  .mint-radiolist-label {
-    display: flex;
-    .mint-radio {
-      width: 80px;
-    }
-    .mint-radio-label {
-      flex: 1;
-      text-align: left;
-    }
-  }
   .question-opt, .question-submit {
     display: flex;
     position: fixed;
