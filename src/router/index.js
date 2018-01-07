@@ -7,6 +7,8 @@ import MaterialDetail from '@/pages/material/detail';
 import Meeting from '@/pages/meeting';
 import MeetingDetail from '@/pages/meeting/detail';
 import BusCheck from '@/pages/bus-check';
+import BusCheckUpload from '@/pages/bus-check/upload';
+import BusCheckStopReason from '@/pages/bus-check/stop-reason';
 import DutySign from '@/pages/duty-sign';
 import DutySignDetail from '@/pages/duty-sign/detail';
 import Answer from '@/pages/answer';
@@ -54,6 +56,16 @@ export default new Router({
       path: '/bus-check',
       name: 'bus-check',
       component: BusCheck
+    },
+    {
+      path: '/bus-check/upload',
+      name: 'bus-check-upload',
+      component: BusCheckUpload
+    },
+    {
+      path: '/bus-check/stop-reason',
+      name: 'bus-check-stop-reason',
+      component: BusCheckStopReason
     },
     {
       path: '/duty-sign',

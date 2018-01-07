@@ -1,9 +1,9 @@
 <template>
-  <article class="options">
+  <article class="question">
     <header class="question-name">{{optionsData.question}}</header>
-    <section class="options-item" @click="chooseOption(option)" v-for="(option, index) in optionsData.options" :key="index">
-      <div class="options-check"><span class="checkbox" :class="boxStyles[index]">{{option.label}}</span></div>
-      <div class="options-value">{{option.value}}</div>
+    <section class="question-item" @click="chooseOption(option)" v-for="(option, index) in optionsData.options" :key="index">
+      <div class="question-check"><span class="checkbox" :class="boxStyles[index]">{{option.label}}</span></div>
+      <div class="question-value">{{option.value}}</div>
     </section>
   </article>
 </template>
@@ -79,7 +79,7 @@ export default {
     justify-content: center;
     color: #888;
   }
-  .options {
+  .question {
     &-item {
       display: flex;
       height: 50px;

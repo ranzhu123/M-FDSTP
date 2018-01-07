@@ -22,8 +22,8 @@ export default {
     return {
       url: '',
       draw: '',
-      width: 600,
-      height: 852
+      width: 700,
+      height: 350
     };
   },
   methods: {

@@ -14,7 +14,7 @@ const getDefaultAPIEnvs = (env) => {
       envs.API_PATH = '';
       break;
     case 'production':
-      envs.API_PATH = 'http://47.92.112.44:8080';
+      envs.API_PATH = '';
       // envs.API_PATH = 'http://192.168.1.133:8080';
       break;
     default:

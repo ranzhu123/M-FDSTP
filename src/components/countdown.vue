@@ -1,10 +1,11 @@
 <template>
   <section class="countdown">
     <div>
-      <span>剩余时间:</span>
-      <span>{{patchNumber(hour)}}时</span>
+      <span>还剩:</span>
+      <span v-show="false">{{patchNumber(hour)}}时</span>
       <span>{{patchNumber(minute)}}分</span>
       <span>{{patchNumber(secend)}}秒</span>
+      <span>{{content}}</span>
     </div>
   </section>
 </template>
@@ -18,7 +19,8 @@ export default {
     },
     overCallback: {
       type: Function
-    }
+    },
+    content: {}
   },
   created () {
     const interval = setInterval(this.cutTime, 10);

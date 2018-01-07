@@ -7,18 +7,26 @@
       <div v-html="info" class="html-container"></div>
     </section>
     <section>
-      <v-camera>
-        <div class="take-photo"><i class="iconfont icon-paizhao"></i>拍照</div>
-      </v-camera>
-      <div class="sign" @click="sign"><i class="iconfont icon-qiandao"></i>签到</div>
-      <div class="sign" :class="timeover?'':'disabled'" @click="answer"><v-countdown :over-callback="()=>{this.timeover = true}" :during=10></v-countdown><i class="iconfont icon-qiandao"></i>答题</div>
+      <div class="sign" @click="showPad"><i class="iconfont icon-qiandao"></i>签到</div>
+      <v-writing-pad v-if="showWritePad" ref="write-pad">
+        <div class="option">
+          <mt-button v-on:click="clear">清除</mt-button>
+          <mt-button v-on:click="submit">提交</mt-button>
+        </div>
+      </v-writing-pad>
+      <div class="sign" :class="timeover?'':'disabled'" @click="answer">
+        <v-countdown v-if="!timeover" content="可答题" :over-callback="()=>{this.timeover = true}" :during=1></v-countdown>
+        <span v-else>
+          <i class="iconfont icon-qiandao"></i>答题
+        </span>
+      </div>
     </section>
   </article>
 </template>
 <script>
-import { materialDetailUrl, signUrl } from '@/module/api/api';
-import Camera from '@/components/camera';
+import { materialDetailUrl, trainLearnSignUrl } from '@/module/api/api';
 import CountDown from '@/components/countdown';
+import writingPad from '@/components/writing-pad';
 import { fetch } from '@/module/common/fetch';
 import { getQueryString } from '@/module/common/utils';
 export default {
@@ -27,7 +35,8 @@ export default {
     return {
       qs: getQueryString(),
       info: '',
-      timeover: false
+      timeover: false,
+      showWritePad: false
     };
   },
   created () {
@@ -37,8 +46,8 @@ export default {
     });
   },
   components: {
-    'v-camera': Camera,
-    'v-countdown': CountDown
+    'v-countdown': CountDown,
+    'v-writing-pad': writingPad
   },
   methods: {
     getMaterialDetail (options) {
@@ -49,15 +58,24 @@ export default {
         this.info = rst.data.content;
       });
     },
-    sign () {
-      fetch(signUrl, {
-        method: 'get'
+    submit () {
+      const data = this.$refs['write-pad'].draw.save();
+      fetch(trainLearnSignUrl, {
+        method: 'post',
+        query: {
+          id: this.qs.id
+        },
+        body: {
+          base64Data: data
+        }
       }).then(rst => {
-        console.log(rst);
-        if (rst.data.flag) {
+        if (rst.data === 'success') {
           alert('签到成功');
         }
       });
+    },
+    clear () {
+      this.$refs['write-pad'].clear();
     },
     answer () {
       if (this.timeover) {
@@ -65,6 +83,9 @@ export default {
       } else {
         alert('还未到答题时间');
       }
+    },
+    showPad () {
+      this.showWritePad = true;
     }
   }
 };
