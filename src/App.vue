@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <transition :name="transitionName">
+      <router-view class="child-view"></router-view>
+    </transition>
     <v-loading></v-loading>
   </div>
 </template>
@@ -12,6 +14,18 @@ export default {
   name: 'app',
   mounted () {
     // this.initDev();
+  },
+  watch: {
+    '$route' (to, from) {
+      const toDepth = to.path.split('/').length;
+      const fromDepth = from.path.split('/').length;
+      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+    }
+  },
+  data () {
+    return {
+      transitionName: 'slide-left'
+    };
   },
   components: {
     'v-loading': loadingComponent
@@ -39,5 +53,20 @@ export default {
   text-align: center;
   color: #2c3e50;
   height: 100%;
+}
+.child-view {
+  position: absolute;
+  width:100%;
+  transition: all .8s cubic-bezier(.55,0,.1,1);
+}
+.slide-left-enter, .slide-right-leave-active {
+  opacity: 0;
+  -webkit-transform: translate(50px, 0);
+  transform: translate(50px, 0);
+}
+.slide-left-leave-active, .slide-right-enter {
+  opacity: 0;
+  -webkit-transform: translate(-50px, 0);
+  transform: translate(-50px, 0);
 }
 </style>

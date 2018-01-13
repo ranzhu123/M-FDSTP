@@ -7,18 +7,21 @@
       <div v-html="info" class="html-container"></div>
     </section>
     <section>
-      <div class="sign" @click="showPad"><i class="iconfont icon-qiandao"></i>签到</div>
+      <div class="sign" @click="showPad">
+        <i class="iconfont icon-qiandao"></i>
+        <span class="font">签到</span>
+      </div>
       <v-writing-pad v-if="showWritePad" ref="write-pad">
         <div class="option">
-          <mt-button v-on:click="clear">清除</mt-button>
-          <mt-button v-on:click="submit">提交</mt-button>
+          <div class="option-item" @click="clear">清除</div>
+          <div class="option-item" @click="submit">提交</div>
         </div>
       </v-writing-pad>
       <div class="sign" :class="timeover?'':'disabled'" @click="answer">
         <v-countdown v-if="!timeover" content="可答题" :over-callback="()=>{this.timeover = true}" :during=1></v-countdown>
-        <span v-else>
-          <i class="iconfont icon-qiandao"></i>答题
-        </span>
+        <div v-else>
+          <i class="iconfont icon-639"></i><span class="font">答题</span>
+        </div>
       </div>
     </section>
   </article>
@@ -94,13 +97,28 @@ export default {
   .take-photo, .sign {
     cursor: pointer;
     line-height: 40px;
-    background-color: #b18f5a;
+    background-color: #1f92d7;
     color: white;
-    margin: 5px 50px;
+    margin: 10px 50px;
     border-radius: 4px;
     &.disabled {
       background-color: #bfbfbf;
     }
+  }
+  .option {
+    display: flex;
+    padding: 10px 50px;
+    &-item {
+      flex: 1;
+      padding: 10px;
+      background-color: #1f92d7;
+      margin-left: 20px;
+      color: white;
+      border-radius: 4px;
+    }
+  }
+  .font {
+    margin-left: 10px;
   }
   .material {
     &-content {

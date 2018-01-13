@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/pages/login';
+import UserOption from '@/pages/user-option';
 import MainPage from '@/pages/main-page';
 import Material from '@/pages/material';
 import MaterialDetail from '@/pages/material/detail';
@@ -20,7 +21,7 @@ export default new Router({
     {
       path: '/',
       name: 'default',
-      component: Login
+      component: MainPage
     },
     {
       path: '/login',
@@ -28,7 +29,12 @@ export default new Router({
       component: Login
     },
     {
-      path: '/main-page',
+      path: '/user-option',
+      name: 'user-option',
+      component: UserOption
+    },
+    {
+      path: '/',
       name: 'main-page',
       component: MainPage
     },

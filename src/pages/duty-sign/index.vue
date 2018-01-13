@@ -1,5 +1,6 @@
 <template>
   <article class="material">
+      <h2>责任状列表</h2>
      <v-table :columns="columns" :table-data="materials" :event="clickEvent">
      </v-table>
   </article>

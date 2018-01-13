@@ -1,30 +1,30 @@
 <template>
   <article class="main">
-    <v-camera :callback="uploadImg">
       <section class="header info">
-        <img v-if="headPortrait" class="info-img" :src="headPortrait">
-        <i v-else class="info-img iconfont icon-add_pic"></i>
-        <span class="info-name">{{userName || 123}}</span>
-        <div class="info-setting">
-          <i>箭头</i>
+        <v-camera :callback="uploadImg">
+          <img v-if="userInfo.photo" class="info-img" :src="userInfo.photo">
+          <i v-else class="info-img iconfont icon-add_pic"></i>
+        </v-camera>
+        <span class="info-name">{{userInfo.name || '*****'}}</span>
+        <div class="info-setting" @click="jump2UserOption">
+          <i class="iconfont icon-jiantou"></i>
         </div>
       </section>
-    </v-camera>
     <section class="main-option">
       <div class="options" @click="jumpRoute('/material')">
-        <i slot="icon" :style="{color: '#dc137f'}" class="iconfont icon-huiyi"></i>
+        <i slot="icon" :style="{color: '#607CEA'}" class="iconfont icon-huiyi"></i>
         <span>安全会议</span>
       </div>
       <div class="options" @click="jumpRoute('/meeting')">
-        <i slot="icon" :style="{color: '#dc137f'}" class="iconfont icon-xunlianpeiyang"></i>
+        <i slot="icon" :style="{color: '#607CEA'}" class="iconfont icon-xunlianpeiyang"></i>
         <span>教育培训</span>
       </div>
       <div class="options" @click="jumpRoute('/bus-check')">
-        <i slot="icon" :style="{color: '#dc137f'}" class="iconfont icon-huoche"></i>
+        <i slot="icon" :style="{color: '#607CEA'}" class="iconfont icon-huoche"></i>
         <span>车辆检查</span>
       </div>
       <div class="options" @click="jumpRoute('/duty-sign')">
-        <i slot="icon" :style="{color: '#dc137f'}" class="iconfont icon-zerenzhuang"></i>
+        <i slot="icon" :style="{color: '#607CEA'}" class="iconfont icon-zerenzhuang"></i>
         <span>责任状签订</span>
       </div>
     </section>
@@ -40,18 +40,17 @@ export default {
   data () {
     return {
       username: '',
-      password: '',
-      headPortrait: ''
+      password: ''
     };
   },
   components: {
     'v-camera': Camera
   },
   computed: mapState({
-    userName: 'userName'
+    userInfo: 'userInfo'
   }),
   created () {
-    this.getHeadPortrait();
+    fetch(getPhoto);
   },
   methods: {
     login () {
@@ -64,8 +63,7 @@ export default {
       fetch(getPhoto, {
         method: 'GET'
       }).then(rst => {
-        console.log(rst);
-        this.headPortrait = rst.data;
+        this.$store.commit('setHeadPortrait', rst.data);
       });
     },
     uploadImg () {
@@ -85,11 +83,14 @@ export default {
           this.getHeadPortrait();
         }
       });
+    },
+    jump2UserOption () {
+      this.jumpRoute('/user-option');
     }
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .main {
     padding: 20px 0;
     background-color: #eee;
@@ -114,7 +115,10 @@ export default {
         }
         &-setting {
           flex: 1;
-          text-align: right;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
         }
       }
     }

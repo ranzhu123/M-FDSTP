@@ -33,8 +33,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/fdstp': {
-        target: 'http://www.yangjinxing.cn:8080',
-        // target: 'http://192.168.1.133:8080',
+        // target: 'http://www.yangjinxing.cn:8080',
+        target: 'http://192.168.1.133:8080',
         changeOrigin: true
       }
     },

@@ -4,7 +4,7 @@ import eventbus from '@/module/common/EventBus';
 import { MessageBox } from 'mint-ui';
 
 // 超时时间
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 30000;
 
 axios.interceptors.request.use(config => {
   // element ui Loading方法
@@ -41,7 +41,7 @@ const querySymble = (url, qs = {}) => {
   return '?';
 };
 
-export const fetch = (url, options) => {
+export const fetch = (url, options = {}) => {
   const {
     method = 'get',
     body = {},

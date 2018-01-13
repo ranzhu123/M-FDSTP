@@ -2,12 +2,12 @@
   <article class="bus-check-upload">
     <h1>车辆检查</h1>
     <p>请提供车辆各方位照片</p>
-    <section class="bus-item" v-for="pic in truckList" :key="'pic' + pic.flag">
+    <section class="bus-item" v-for="(pic, index) in truckList" :key="'pic' + pic.flag">
       <span class="bus-title">{{pic.name}}</span>
       <section class="bus-content">
         <img class="bus-img" :src="pic.photo || defaultImg"/>
         <v-camera :callback="getUrl">
-          <div @click="chooseBus(pic.flag)">上传</div>
+          <div @click="chooseBus(index)">上传</div>
         </v-camera>
       </section>
     </section>
@@ -61,7 +61,7 @@ export default {
       });
     },
     getUrl (url) {
-      this.position[this.curPic].imgUrl = url;
+      this.truckList[this.curPic].photo = url;
     },
     submit () {
       const files = document.querySelectorAll('.fileinput-button');

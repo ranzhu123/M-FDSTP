@@ -5,7 +5,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userName: '',
-    questionData: []
+    questionData: [],
+    headPortrait: '',
+    userInfo: {}
   },
   mutations: {
     setName (state, name) {
@@ -13,6 +15,12 @@ export default new Vuex.Store({
     },
     setQuestionData (state, questionData) {
       state.questionData = questionData;
+    },
+    setHeadPortrait (state, headPortrait) {
+      state.headPortrait = headPortrait;
+    },
+    setUserInfo (state, userInfo) {
+      state.userInfo = userInfo;
     }
   }
 });
