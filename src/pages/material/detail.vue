@@ -7,17 +7,17 @@
       <div v-html="info" class="html-container"></div>
     </section>
     <section>
-      <div class="sign" @click="showPad">
+      <v-writing-pad v-if="showWritePad" ref="write-pad">
+        <div class="option">
+          <button class="beautiful-btn" v-on:click="clear">清除</button>
+          <button class="beautiful-btn" v-on:click="submit">提交</button>
+        </div>
+      </v-writing-pad>
+      <div class="sign beautiful-btn" @click="showPad">
         <i class="iconfont icon-qiandao"></i>
         <span class="font">签到</span>
       </div>
-      <v-writing-pad v-if="showWritePad" ref="write-pad">
-        <div class="option">
-          <div class="option-item" @click="clear">清除</div>
-          <div class="option-item" @click="submit">提交</div>
-        </div>
-      </v-writing-pad>
-      <div class="sign" :class="timeover?'':'disabled'" @click="answer">
+      <div class="sign beautiful-btn" :class="timeover?'':'disabled'" @click="answer">
         <v-countdown v-if="!timeover" content="可答题" :over-callback="()=>{this.timeover = true}" :during=1></v-countdown>
         <div v-else>
           <i class="iconfont icon-639"></i><span class="font">答题</span>
@@ -94,28 +94,9 @@ export default {
 };
 </script>
 <style lang="scss">
-  .take-photo, .sign {
-    cursor: pointer;
-    line-height: 40px;
-    background-color: #1f92d7;
-    color: white;
-    margin: 10px 50px;
-    border-radius: 4px;
-    &.disabled {
-      background-color: #bfbfbf;
-    }
-  }
   .option {
     display: flex;
     padding: 10px 50px;
-    &-item {
-      flex: 1;
-      padding: 10px;
-      background-color: #1f92d7;
-      margin-left: 20px;
-      color: white;
-      border-radius: 4px;
-    }
   }
   .font {
     margin-left: 10px;

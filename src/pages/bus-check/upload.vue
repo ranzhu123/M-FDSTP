@@ -1,17 +1,20 @@
 <template>
-  <article class="bus-check-upload">
+  <article class="html-container bus-check-upload">
     <h1>车辆检查</h1>
     <p>请提供车辆各方位照片</p>
-    <section class="bus-item" v-for="(pic, index) in truckList" :key="'pic' + pic.flag">
+    <section class="bus-item" v-for="(pic, index) in truckList" :key="'pic' + pic.id">
       <span class="bus-title">{{pic.name}}</span>
       <section class="bus-content">
         <img class="bus-img" :src="pic.photo || defaultImg"/>
-        <v-camera :callback="getUrl">
-          <div @click="chooseBus(index)">上传</div>
+        <v-camera :callback="getFile">
+          <div @click="chooseBus(index)">
+            <span v-if="pic.fileName">{{pic.fileName}}</span>
+            <i v-else class="iconfont icon-shangchuan"></i>
+          </div>
         </v-camera>
       </section>
     </section>
-    <div class="bus-submit" @click="submit">提交</div>
+    <div class="beautiful-btn bus-submit" @click="submit">提交</div>
   </article>
 </template>
 <script>
@@ -60,23 +63,31 @@ export default {
         this.truckList = rst.data || [];
       });
     },
-    getUrl (url) {
-      this.truckList[this.curPic].photo = url;
+    getFile (file) {
+      Object.assign(this.truckList[this.curPic], file);
     },
     submit () {
-      const files = document.querySelectorAll('.fileinput-button');
       let formData = new FormData();
-      files.forEach(file => {
-        formData.append('file', file.files[0]);
+      let hasFile = false;
+      this.truckList.forEach(tructItem => {
+        hasFile = hasFile || !!tructItem.file;
+        formData.append('file', tructItem.file);
       });
-      fetch(truckPhotoUploadUrl, {
+      if (!hasFile) {
+        alert('请选择文件');
+        return '';
+      }
+      return fetch(truckPhotoUploadUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data'
         },
-        data: formData
+        data: formData,
+        extractData: true
       }).then(data => {
-        console.log(data);
+        if (data.code === 0) {
+          alert('上传成功');
+        }
       });
     }
   }
@@ -89,13 +100,8 @@ export default {
       height: 170px;
     }
     &-submit {
-      width: 200px;
-      margin: 20px auto;
-      background: #ca7c13;
-      font-size: 16px;
-      color: white;
-      border-radius: 4px;
-      line-height: 40px
+      margin: 30px auto;
+      width: 250px;
     }
     &-item {
       display: flex;

@@ -55,7 +55,13 @@ export default {
         console.log('成功读取....');
         this.url = e.target.result;
         if (this.callback) {
-          this.callback(this.url);
+          // this.callback(this.url);
+          this.callback({
+            url: this.url,
+            photo: this.url,
+            fileName: file.name,
+            file
+          });
         }
       };
       reader.readAsDataURL(file);

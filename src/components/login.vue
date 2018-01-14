@@ -18,8 +18,8 @@ export default {
   },
   data () {
     return {
-      username: 'thinkgem',
-      password: 'admin'
+      username: '',
+      password: ''
     };
   },
   mounted () {
@@ -29,6 +29,10 @@ export default {
 <style lang="scss" scoped>
   .login-form {
     margin-bottom: 30px;
+    color: white;
+    .mint-cell {
+      background-color: transparent;
+    }
   }
 </style>
 

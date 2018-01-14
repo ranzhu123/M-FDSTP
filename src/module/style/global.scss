@@ -12,3 +12,40 @@ html, body {
 .html-container {
   margin-top: 20px;
 }
+.content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
+}
+.beautiful-btn {
+  cursor: pointer;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px #913D1F;
+  height: 50px;
+  line-height: 50px;
+  color: white;
+  background: linear-gradient(180deg,#D74707,#BF400A 70%);
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 16px;
+  .iconfont {
+    margin-right: 10px;
+  }
+  &.sign {
+    margin: 10px auto;
+    width: 250px;
+  }
+}
+.writing-pad {
+  .option {
+    display: flex;
+    .beautiful-btn {
+      flex: 1;
+      margin: 0 20px;
+    }
+  }
+}

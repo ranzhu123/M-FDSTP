@@ -19,7 +19,7 @@ axios.interceptors.response.use(data => { // 响应成功关闭loading
   eventbus.broadcast('loading-close');
   if (data && data.data === '请登录') {
     MessageBox({
-      title: '哎呀，登录态丢失了~~~',
+      title: '服务出错了~~~',
       confirmButtonText: '去登录'
     }).then(() => {
       location.hash = '#/login';
@@ -47,7 +47,8 @@ export const fetch = (url, options = {}) => {
     body = {},
     query = {},
     headers = {},
-    data = null
+    data = null,
+    extractData = false
   } = options;
   const qs = Object.assign({}, query);
   const fetchUrl = url + querySymble(url, qs) + querystring.encode(qs);
@@ -59,5 +60,10 @@ export const fetch = (url, options = {}) => {
   if (!data) {
     fetchOption.data = Object.assign({}, body);
   }
-  return axios(fetchUrl, fetchOption);
+  return axios(fetchUrl, fetchOption).then(rst => {
+    if (extractData) {
+      return rst && rst.data;
+    }
+    return rst;
+  });
 };

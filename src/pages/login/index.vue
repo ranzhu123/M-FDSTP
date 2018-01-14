@@ -1,5 +1,5 @@
 <template>
-  <article class="login">
+  <article class="login-container">
     <v-login :login="login"></v-login>
   </article>
 </template>
@@ -62,7 +62,12 @@ export default {
   width: 90%;
   margin: 0 auto;
 }
-.login {
+.login-container {
+  background: url('../../assets/login-bg.jpg');
+  padding-top: 200px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
   .signup {
     margin: 10px 30px;
     font-size: 15px;

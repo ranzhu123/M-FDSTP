@@ -7,13 +7,16 @@
       <div v-html="info" class="html-container"></div>
     </section>
     <section id="writing-pad">
-      <div class="sign" @click="showPad"><i class="iconfont icon-qiandao"></i>签到</div>
-      <v-writing-pad v-if="showWritePad" ref="write-pad">
+     <v-writing-pad v-if="showWritePad" ref="write-pad">
         <div class="option">
-          <mt-button v-on:click="clear">清除</mt-button>
-          <mt-button v-on:click="submit">提交</mt-button>
+          <button class="beautiful-btn" v-on:click="clear">清除</button>
+          <button class="beautiful-btn" v-on:click="submit">提交</button>
         </div>
       </v-writing-pad>
+      <div class="sign beautiful-btn" @click="showPad">
+        <i class="iconfont icon-qiandao"></i>
+        <span class="font">签到</span>
+      </div>
     </section>
   </article>
 </template>

@@ -56,9 +56,10 @@ export default class Draw {
     window.getSelection() ? window.getSelection().removeAllRanges() : document.selection.empty();
     this.cxt.strokeStyle = this.strokeColor;
     this.cxt.beginPath();
+    this.stage_info = this.canvas.getBoundingClientRect();
     this.cxt.moveTo(
-      e.changedTouches[0].clientX - this.stage_info.left,
-      e.changedTouches[0].clientY - this.stage_info.top + htmlScrollTop
+      e.changedTouches[0].pageX - this.stage_info.left,
+      e.changedTouches[0].pageY - this.stage_info.top - htmlScrollTop
     );
     // this.path.beginX = e.changedTouches[0].clientX - this.stage_info.left;
     // this.path.beginY = e.changedTouches[0].clientY - this.stage_info.top + htmlScrollTop;
@@ -69,8 +70,8 @@ export default class Draw {
   drawing (e) {
     const htmlScrollTop = this.getHtmlScrollTop();
     this.cxt.lineTo(
-      e.changedTouches[0].clientX - this.stage_info.left,
-      e.changedTouches[0].clientY - this.stage_info.top + htmlScrollTop
+      e.changedTouches[0].pageX - this.stage_info.left,
+      e.changedTouches[0].pageY - this.stage_info.top - htmlScrollTop
     );
     // this.path.endX = e.changedTouches[0].clientX - this.stage_info.left;
     // this.path.endY = e.changedTouches[0].clientY - this.stage_info.top + htmlScrollTop;

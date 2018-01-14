@@ -63,14 +63,15 @@ export default {
       fetch(getPhoto, {
         method: 'GET'
       }).then(rst => {
-        this.$store.commit('setHeadPortrait', rst.data);
+        this.$store.commit('setUserInfo', Object.assign({}, this.userInfo, {
+          photo: rst.data
+        }));
       });
     },
     uploadImg () {
       const file = document.querySelector('.fileinput-button').files[0];
       let formData = new FormData();
       formData.append('pic', file);
-      console.log(file, formData);
       // axios.post(updatePhoto, formData);
       fetch(updatePhoto, {
         method: 'POST',

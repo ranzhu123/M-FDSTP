@@ -13,3 +13,4 @@ export const updatePhoto = `${API_PATH}/fdstp/fdstp/user/updatePhoto`;
 export const getPhoto = `${API_PATH}/fdstp/fdstp/user/queryPhoto`;
 export const queryCurrentUser = `${API_PATH}/fdstp/fdstp/user/queryCurrentUser`;
 export const queryWechat = `${API_PATH}/fdstp/wechat/accessToken`;
+export const modifyPwd = `${API_PATH}/fdstp/fdstp/user/modifyPwd`;

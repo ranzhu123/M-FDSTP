@@ -5,7 +5,7 @@
       v-model="value"
       :options="options">
     </mt-radio>
-    <div class="bus-submit" @click="submit">提交</div>
+    <div class="bus-submit beautiful-btn" @click="submit">提交</div>
   </article>
 </template>
 <script>

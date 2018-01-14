@@ -1,7 +1,7 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.woff?t=1515509660217') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1515509660217') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  src: url('iconfont.woff?t=1515904799641') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1515904799641') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
 }
 
 .iconfont {
@@ -12,8 +12,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 .icon-mima:before { content: "\e65e"; }
+
+.icon-shangchuan:before { content: "\e602"; }
 
 .icon-iconfontjinzhi:before { content: "\e62e"; }
 
@@ -27,6 +28,8 @@
 
 .icon-user:before { content: "\e6af"; }
 
+.icon-qingchu:before { content: "\e656"; }
+
 .icon-add_pic:before { content: "\e600"; }
 
 .icon-huiyi:before { content: "\e60b"; }
@@ -37,7 +40,8 @@
 
 .icon-paizhao:before { content: "\e872"; }
 
+.icon-tijiao:before { content: "\e608"; }
+
 .icon-CheckboxChecked:before { content: "\e628"; }
 
 .icon-xunlianpeiyang:before { content: "\e605"; }
-
