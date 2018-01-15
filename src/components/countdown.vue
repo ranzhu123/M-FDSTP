@@ -58,7 +58,7 @@ export default {
   data () {
     return {
       hour: 0,
-      minute: 10,
+      minute: this.during || 10,
       secend: 0,
       timeover: false
     };

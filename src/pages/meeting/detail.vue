@@ -15,7 +15,7 @@
       </v-writing-pad>
       <div class="sign beautiful-btn" @click="showPad"><i class="iconfont icon-qiandao"></i>签到</div>
       <div class="sign beautiful-btn" :class="timeover?'':'disabled'" @click="answer">
-        <v-countdown v-if="!timeover" content="可答题" :over-callback="()=>{this.timeover = true}" :during=1></v-countdown>
+        <v-countdown v-if="during && !timeover" content="可答题" :over-callback="()=>{this.timeover = true}" :during="during"></v-countdown>
         <span v-else>
           <i class="iconfont icon-639"></i>答题
         </span>
@@ -36,7 +36,8 @@ export default {
       qs: getQueryString(),
       info: '',
       timeover: false,
-      showWritePad: false
+      showWritePad: false,
+      during: 0
     };
   },
   created () {
@@ -53,9 +54,11 @@ export default {
     getMaterialDetail (options) {
       fetch(materialDetailUrl, {
         method: 'get',
-        query: options
-      }).then(rst => {
-        this.info = rst.data.content;
+        query: options,
+        extractData: true
+      }).then(data => {
+        this.info = data.content;
+        this.during = data.period;
       });
     },
     submit () {
