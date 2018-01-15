@@ -98,15 +98,6 @@ export default {
       background-color: #bfbfbf;
     }
   }
-  .writing-pad {
-    .option {
-      display: flex;
-      .beautiful-btn {
-        flex: 1;
-        margin: 0 20px;
-      }
-    }
-  }
   .metting {
     &-content {
       padding: 20px;

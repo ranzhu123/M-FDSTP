@@ -33,7 +33,7 @@
 <script>
 import { mapState } from 'vuex';
 import Camera from '@/components/camera';
-import { updatePhoto, getPhoto } from '@/module/api/api';
+import { updatePhoto, getPhoto, queryCurrentUser } from '@/module/api/api';
 import { fetch } from '@/module/common/fetch';
 export default {
   name: 'main-page',
@@ -50,7 +50,12 @@ export default {
     userInfo: 'userInfo'
   }),
   created () {
-    fetch(getPhoto);
+    if (!this.userInfo.name) {
+      return fetch(queryCurrentUser).then(rst => {
+        const { data = {} } = rst;
+        this.$store.commit('setUserInfo', data);
+      });
+    }
   },
   methods: {
     login () {

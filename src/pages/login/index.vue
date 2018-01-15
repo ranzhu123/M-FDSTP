@@ -28,9 +28,10 @@ export default {
           username,
           password,
           mobileLogin: true
-        }
-      }).then((loginRst = {}) => {
-        if (loginRst.data && loginRst.data.loginName) {
+        },
+        extractData: true
+      }).then((loginData = {}) => {
+        if (loginData && loginData.loginName) {
           return fetch(queryCurrentUser).then(rst => {
             const { data = {} } = rst;
             this.$store.commit('setUserInfo', data);
@@ -43,7 +44,7 @@ export default {
                 }
               });
             } else {
-              this.$router.push('/');
+              this.$router.push({path: '/'});
             }
           });
         } else {

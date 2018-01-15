@@ -23,7 +23,7 @@ export default {
     content: {}
   },
   created () {
-    const interval = setInterval(this.cutTime, 10);
+    const interval = setInterval(this.cutTime, 1000);
     if (this.timeover) {
       clearInterval(interval);
     }

@@ -3,6 +3,7 @@ export const materialListUrl = `${API_PATH}/fdstp/a/driver/base/queryTrainingLis
 export const materialDetailUrl = `${API_PATH}/fdstp/a/driver/base/queryTrainingContent`;
 export const trainLearnSignUrl = `${API_PATH}/fdstp/a/driver/base/updateTrainingLearnSign`;
 export const loginUrl = `${API_PATH}/fdstp/a/login`;
+export const logoutUrl = `${API_PATH}/fdstp/a/logout`;
 export const truckPhotoUploadUrl = `${API_PATH}/fdstp/a/driver/base/truckDepartCheckPhotoUpload`;
 export const truckPhotoReasonUrl = `${API_PATH}/fdstp/a/driver/base/truckDepartCheckReasonUpload`;
 export const truckCheckMsgUrl = `${API_PATH}/fdstp/a/driver/base/selectTruckDepartCheckMsg`;

@@ -27,15 +27,13 @@
       >
       <v-changePSW @close-pop="passwordVisible=false"></v-changePSW>
     </mt-popup>
-    <section>
-      <div></div>
-    </section>
+    <div @click="logout" class="logout-btn beautiful-btn">退出登录</div>
   </article>
 </template>
 <script>
 import { mapState } from 'vuex';
 import Camera from '@/components/camera';
-import { updatePhoto, getPhoto } from '@/module/api/api';
+import { updatePhoto, getPhoto, logoutUrl } from '@/module/api/api';
 import { fetch } from '@/module/common/fetch';
 import changePSW from './changePSW';
 export default {
@@ -86,6 +84,13 @@ export default {
           this.getHeadPortrait();
         }
       });
+    },
+    logout () {
+      fetch(logoutUrl, {ignoreError: true}).then(d => {
+        this.$router.push('/login');
+      }).catch(() => {
+        alert('退出失败，请重试');
+      });
     }
   }
 };
@@ -134,6 +139,12 @@ export default {
     .mint-popup {
       width: 100%;
       height: 100%;
+    }
+    .logout-btn {
+      bottom: 20px;
+      left: 37px;
+      margin: 450px auto 0 ;
+      width: 300px;
     }
   }
 </style>

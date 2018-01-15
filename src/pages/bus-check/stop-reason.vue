@@ -51,7 +51,6 @@ export default {
   },
   methods: {
     submit () {
-      console.log(this.value);
       fetch(truckPhotoReasonUrl, {
         method: 'POST',
         query: {
@@ -60,6 +59,7 @@ export default {
       }).then((rst = {}) => {
         if (rst.data && rst.data.code === 0) {
           alert('操作成功');
+          this.$router.back(-1);
         } else {
           alert('操作失败');
         }

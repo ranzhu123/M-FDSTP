@@ -9,9 +9,9 @@
         <label class="input-desc">新密码</label><input placeholder="请输入新密码" v-model="newPassword" type="password"/>
       </div>
     </section>
-    <section>
-      <button @click="changePSW">确认修改</button>
-      <button @click="closePop">取消</button>
+    <section class="change-password">
+      <button class="beautiful-btn" @click="changePSW">确认修改</button>
+      <button class="beautiful-btn" @click="closePop">取消</button>
     </section>
   </article>
 </template>
@@ -71,6 +71,17 @@ export default {
       width: 100px;
       padding-right: 10px;
       text-align: left;
+    }
+  }
+  .change-password {
+    margin: 0 60px;
+    .beautiful-btn {
+      margin-bottom: 10px;
+      box-shadow: 0 0 0 0;
+      background: linear-gradient(180deg, #23a2ec, #2676c8 70%);
+      &:first-child {
+        margin-top: 30px;
+      } 
     }
   }
 </style>
