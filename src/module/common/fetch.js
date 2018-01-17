@@ -20,12 +20,12 @@ axios.interceptors.response.use((rst = {}) => { // 响应成功关闭loading
   eventbus.broadcast('loading-close');
   if (!config.ignoreError && data === '请登录') {
     MessageBox({
-      title: '服务出错了~~~',
+      title: '登录失效了，请重新登录',
       confirmButtonText: '去登录'
     }).then(() => {
       location.hash = '#/login';
     });
-    return Promise.reject(new Error('登录态丢失了'));
+    return Promise.reject(new Error('登录失效了'));
   }
   return rst;
 }, error => {
