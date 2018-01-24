@@ -28,12 +28,13 @@
         <span>责任状签订</span>
       </div>
     </section>
+    <div @click="logout" class="logout-btn beautiful-btn">退出登录</div>
   </article>
 </template>
 <script>
 import { mapState } from 'vuex';
 import Camera from '@/components/camera';
-import { updatePhoto, getPhoto, queryCurrentUser } from '@/module/api/api';
+import { updatePhoto, getPhoto, queryCurrentUser, logoutUrl } from '@/module/api/api';
 import { fetch } from '@/module/common/fetch';
 export default {
   name: 'main-page',
@@ -92,6 +93,13 @@ export default {
     },
     jump2UserOption () {
       this.jumpRoute('/user-option');
+    },
+    logout () {
+      fetch(logoutUrl, {ignoreError: true}).then(d => {
+        this.$router.push('/login');
+      }).catch(() => {
+        alert('退出失败，请重试');
+      });
     }
   }
 };
@@ -173,6 +181,13 @@ export default {
       margin-left: 15px;
       font-weight: 600;
     }
+  }
+  .logout-btn {
+    bottom: 20px;
+    left: 37px;
+    margin: 150px auto 0 ;
+    width: 300px;
+    box-shadow: 0 0 0;
   }
 </style>
 

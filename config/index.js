@@ -12,7 +12,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/fdstp/mobile/',
-    productionSourceMap: true,
+    productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
@@ -33,7 +33,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/fdstp': {
-        target: 'http://www.yangjinxing.cn:8080',
+        target: 'http://www.yangjinxing.cn',
         // target: 'http://192.168.1.133:8080',
         changeOrigin: true
       }

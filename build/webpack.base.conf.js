@@ -11,7 +11,8 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main.js',
+    vendor: ['vue', 'vuex', 'vue-router']
   },
   output: {
     path: config.build.assetsRoot,

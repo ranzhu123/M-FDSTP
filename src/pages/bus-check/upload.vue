@@ -6,13 +6,13 @@
       <span class="bus-title">{{pic.name}}</span>
       <section class="bus-content">
         <img class="bus-img" :src="pic.photo || defaultImg"/>
-        <v-camera :callback="getFile">
+      </section>
+      <v-camera style="flex: 1;display: flex;align-items: center;justify-content: center;" :callback="getFile">
           <div @click="chooseBus(index)">
-            <span v-if="pic.fileName">{{pic.fileName}}</span>
-            <i v-else class="iconfont icon-shangchuan"></i>
+            <!-- <span v-if="pic.fileName">{{pic.fileName}}</span> -->
+            <span>上传</span>
           </div>
         </v-camera>
-      </section>
     </section>
     <div class="beautiful-btn bus-submit" @click="submit">提交</div>
   </article>
@@ -109,7 +109,7 @@ export default {
       margin-top: 30px;
     }
     &-title {
-      width: 130px;
+      width: 80px;
       display: flex;
       justify-content: center;
       align-items: center;
