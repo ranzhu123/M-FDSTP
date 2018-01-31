@@ -13,7 +13,7 @@
           <button class="beautiful-btn" v-on:click="submit">提交</button>
         </div>
       </v-writing-pad>
-      <div class="sign beautiful-btn" @click="showPad"><i class="iconfont icon-qiandao"></i>签到</div>
+      <div class="sign beautiful-btn" v-show="!qs.isRead && !showWritePad" @click="showPad"><i class="iconfont icon-qiandao"></i>签到</div>
       <div class="sign beautiful-btn" :class="timeover?'':'disabled'" @click="answer">
         <v-countdown v-if="during && !timeover" content="可答题" :over-callback="()=>{this.timeover = true}" :during="during"></v-countdown>
         <span v-else>

@@ -13,7 +13,7 @@
           <button class="beautiful-btn" v-on:click="submit">提交</button>
         </div>
       </v-writing-pad>
-      <div class="sign beautiful-btn" @click="showPad">
+      <div class="sign beautiful-btn" v-show="!qs.isRead && !showWritePad" @click="showPad">
         <i class="iconfont icon-qiandao"></i>
         <span class="font">签到</span>
       </div>

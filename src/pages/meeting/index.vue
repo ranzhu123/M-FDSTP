@@ -44,8 +44,10 @@ export default {
       });
     },
     clickEvent (id) {
-      const title = this.materials.filter(material => material.id === id)[0].title;
-      this.$router.push({path: `/meeting/detail?id=${id}&title=${title}`});
+      const thisItem = this.materials.filter(material => material.id === id)[0];
+      const title = thisItem.title;
+      const isRead = thisItem.isRead;
+      this.$router.push({path: `/meeting/detail?id=${id}&title=${title}&isRead=${isRead}`});
     },
     sortByDate () {
       const power = this.dateSort2before ? 1 : -1;

@@ -39,7 +39,10 @@ export default {
       });
     },
     clickEvent (id) {
-      this.$router.push({path: `/duty-sign/detail?id=${id}`});
+      const thisItem = this.materials.filter(material => material.id === id)[0];
+      const title = thisItem.title;
+      const isRead = thisItem.isRead;
+      this.$router.push({path: `/duty-sign/detail?id=${id}&title=${title}&isRead=${isRead}`});
     }
   }
 };
