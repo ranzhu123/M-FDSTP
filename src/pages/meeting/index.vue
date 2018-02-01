@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     getMaterialList () {
-      fetch(`${materialListUrl}/2`, {
+      fetch(`${materialListUrl}/1`, {
         method: 'get'
       }).then(rst => {
         const materials = rst.data || [];

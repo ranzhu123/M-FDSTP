@@ -11,6 +11,8 @@ html, body {
 }
 .html-container {
   margin-top: 20px;
+  max-width: 335px;
+  overflow-x: auto;
 }
 .content-center {
   display: flex;

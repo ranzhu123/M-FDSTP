@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     getMaterialList () {
-      fetch(`${materialListUrl}/1`, {
+      fetch(`${materialListUrl}/2`, {
         method: 'GET',
         header: {
           'Accept': '*/*'

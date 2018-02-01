@@ -2,7 +2,7 @@
   <article class="duty-detail">
     <section class="duty-content">
       <h2 class="title">
-        标题
+        {{qs.title}}
       </h2>
       <div v-html="info" class="html-container"></div>
     </section>
@@ -13,7 +13,7 @@
           <button class="beautiful-btn" v-on:click="submit">提交</button>
         </div>
       </v-writing-pad>
-      <div class="sign beautiful-btn" v-show="!qs.isRead && !showWritePad" @click="showPad">
+      <div class="sign beautiful-btn" v-show="qs.isRead==='false' && !showWritePad" @click="showPad">
         <i class="iconfont icon-qiandao"></i>
         <span class="font">签到</span>
       </div>
