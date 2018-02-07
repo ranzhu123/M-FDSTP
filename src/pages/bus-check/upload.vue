@@ -70,8 +70,8 @@ export default {
       let formData = new FormData();
       let hasFile = false;
       this.truckList.forEach(tructItem => {
-        hasFile = hasFile || !!tructItem.file;
-        formData.append('file', tructItem.file);
+        hasFile = hasFile || !!tructItem.url;
+        formData.append('file', tructItem.url, 'image.png');
       });
       if (!hasFile) {
         alert('请选择文件');

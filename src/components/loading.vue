@@ -1,6 +1,6 @@
 <<template>
   <section v-show="loading" class="loading-container">
-    <mt-spinner type="fading-circle" :size="200"></mt-spinner>
+    <mt-spinner type="fading-circle" :size="size"></mt-spinner>
   </section>
 </template>
 <script>
@@ -8,7 +8,8 @@ import eventbus from '@/module/common/EventBus';
 export default {
   data () {
     return {
-      loading: false
+      loading: false,
+      size: document.querySelector('html').style.fontSize.replace('px', '') * 2
     };
   },
   created () {

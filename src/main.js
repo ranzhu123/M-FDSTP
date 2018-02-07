@@ -6,6 +6,7 @@ import router from './router';
 import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css';
 import store from './store/index';
+import 'promise-polyfill/src/polyfill';
 Vue.use(Mint);
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
