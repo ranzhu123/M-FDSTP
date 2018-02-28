@@ -16,14 +16,15 @@
 <script>
 import Draw from '@/module/common/canvas/Draw';
 // const imgs = require('../assets/timg.jpeg');
+const fz = document.querySelector('html').style.fontSize.replace('px', '');
 export default {
   name: 'app',
   data () {
     return {
       url: '',
       draw: '',
-      width: 700,
-      height: 350
+      width: 700 * fz / 100,
+      height: 350 * fz / 100
     };
   },
   methods: {
@@ -40,6 +41,7 @@ export default {
   },
   mounted () {
     const canvas = this.$refs.draw;
+    // const canvas = document.querySelector('.draw');
     this.draw = new Draw(canvas, {
       width: this.width,
       height: this.height // ,

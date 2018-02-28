@@ -71,8 +71,10 @@ export default {
         data: {
           base64Data: data
         }
-      }).then(data => {
-        console.log(data);
+      }).then(res => {
+        if (res && res.data === 'success') {
+          alert('签到成功');
+        }
       });
     },
     clear () {

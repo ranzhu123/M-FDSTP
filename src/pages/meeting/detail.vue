@@ -72,7 +72,7 @@ export default {
           base64Data: data
         }
       }).then(rst => {
-        if (rst.data === 'success') {
+        if (rst && rst.data === 'success') {
           alert('签到成功');
         }
       });

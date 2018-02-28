@@ -24,6 +24,7 @@ export default class Draw {
   }
   bodyLock (flag) {
     document.body.style.overflow = flag ? 'hidden' : 'auto';
+    document.querySelector('html').style.overflow = flag ? 'hidden' : 'auto';
   }
   init (btn) {
     this.canvas.addEventListener('touchstart', (event) => {
@@ -49,14 +50,19 @@ export default class Draw {
     }
   }
   getHtmlScrollTop () {
-    return document.querySelector('html').scrollTop;
+    return document.querySelector('html').scrollTop || document.querySelector('body').scrollTop;
   }
   drawBegin (e) {
+    // alert(e);
     const htmlScrollTop = this.getHtmlScrollTop();
     window.getSelection() ? window.getSelection().removeAllRanges() : document.selection.empty();
     this.cxt.strokeStyle = this.strokeColor;
     this.cxt.beginPath();
     this.stage_info = this.canvas.getBoundingClientRect();
+    // alert(e.changedTouches[0].pageY);
+    // alert(this.stage_info.top);
+    // alert(htmlScrollTop);
+    // alert(e.changedTouches[0].pageY - this.stage_info.top - htmlScrollTop);
     this.cxt.moveTo(
       e.changedTouches[0].pageX - this.stage_info.left,
       e.changedTouches[0].pageY - this.stage_info.top - htmlScrollTop
